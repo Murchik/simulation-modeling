@@ -1,19 +1,28 @@
+#include <cmath>
 #include <vector>
+
+constexpr double GravConst = 398603000000000.0;
 
 class TDynamicModel {
 protected:
-    std::vector<double> RightParts;
+    std::vector<double>* RightParts;
 
 public:
     TDynamicModel();
     ~TDynamicModel();
-    std::vector<double> GetRightParts();
-    virtual void Funcs(float, std::vector<double>);
+
+    std::vector<double>* GetRightParts();
+    virtual void SetInitialValues(double x, double y, double z, double Vx,
+                                  double Vy, double Vz) = 0;
+    virtual void SetInitialValues(std::vector<double> initialValues) = 0;
 };
 
 class TSpaceCraft : public TDynamicModel {
 public:
     TSpaceCraft();
     ~TSpaceCraft();
-    void Funcs(float, std::vector<double>) final;  // Реализовать
+
+    void SetInitialValues(double x, double y, double z, double Vx, double Vy,
+                          double Vz) final;
+    void SetInitialValues(std::vector<double> const initialValues) final;
 };

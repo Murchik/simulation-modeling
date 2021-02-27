@@ -2,38 +2,38 @@
 
 #include "integrators.hpp"
 
-int main() {
-    TAbstractIntegrator* integrator = new TEuler(0.0, 10.0, 0.2);
-    TDynamicModel* model = new TSpaceCraft;
-    std::vector<double>* rightParts = model->GetRightParts();
-
-    std::cout << "Right parts before initialization:" << std::endl;
-    for (int i = 0; i < (*rightParts).size(); ++i) {
-        std::cout << " " << (*rightParts)[i];
-    }
-    std::cout << std::endl;
-
+int main() {    
+    std::vector<double>* inegr;
+    // Инициализация интегратора и модели
+    TAbstractIntegrator* integrator = new TEuler(0.0, 2.0);
+    TDynamicModel* model = new TestFunction;
+    // Задание модели и шага интегрирования
     integrator->SetDynamicModel(model);
-    std::vector<double> values = {1.0, 1.0, 1.0, 2.0, 2.0, 0.0};
-    model->SetInitialValues(values);
-
-    std::cout << "Right parts after initialization:" << std::endl;
-    for (int i = 0; i < (*rightParts).size(); ++i) {
-        std::cout << " " << (*rightParts)[i];
-    }
-    std::cout << std::endl;
-
-    std::cout << "Vector of values before one step:" << std::endl;
+    integrator->SetStep(0.000001);
+    // Задание начального значения аргумента
+    std::vector<double> values = {0.0};
+    
+    // Печать аргументов до интегрирования
+    std::cout << "Vector of values before:" << std::endl;
     for (int i = 0; i < values.size(); ++i) {
         std::cout << " " << values[i];
     }
     std::cout << std::endl;
 
-    integrator->OneStep(&values);
+    // Интегрирование
+    inegr = integrator->Integrate(&values);
 
-    std::cout << "Vector of values after one step:" << std::endl;
+    // Печать аргументов после интегрирования
+    std::cout << "Vector of values after:" << std::endl;
     for (int i = 0; i < values.size(); ++i) {
         std::cout << " " << values[i];
+    }
+    std::cout << std::endl;
+    
+    // Печать аргументов после интегрирования
+    std::cout << "Vector of values after:" << std::endl;
+    for (int i = 0; i < (*inegr).size(); ++i) {
+        std::cout << " " << (*inegr)[i];
     }
     std::cout << std::endl;
 

@@ -1,7 +1,7 @@
 #include <cmath>
 #include <vector>
 
-constexpr double GravConst = 398603000000000.0;
+const double GravConst = 398603000000000.0;
 
 class TDynamicModel {
 protected:

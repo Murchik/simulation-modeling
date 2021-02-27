@@ -28,10 +28,25 @@ std::vector<double>* TEuler::OneStep(std::vector<double>* values) {
     }
 
     int n = (*values).size();
-    std::vector<double>* direviteves = (*model).GetRightParts();
+    std::vector<double>* derivatives = (*model).GetRightParts();
     for (int k = 0; k < n; ++k) {
-        (*values)[k] += (*direviteves)[k] * h;
+        (*values)[k] += (*derivatives)[k] * h;
     }
     ti += h;
     return values;
+}
+
+TRungeKutta::TRungeKutta() {
+    /// PLACEHOLDER
+}
+TRungeKutta::TRungeKutta(double t0, double tk, double h)
+    : TAbstractIntegrator(t0, tk, h){};
+TRungeKutta::~TRungeKutta() {
+    /// PLACEHOLDER
+}
+std::vector<double>* TRungeKutta::OneStep(std::vector<double>* values) {
+    if (ti > tk) {
+        return nullptr;
+    }
+    /// PLACEHOLDER
 }

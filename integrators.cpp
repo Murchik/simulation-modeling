@@ -4,25 +4,32 @@ TAbstractIntegrator::TAbstractIntegrator() {
     this->h = 0.001;
     this->model = nullptr;
 }
-TAbstractIntegrator::~TAbstractIntegrator() {
-    /// PLACEHOLDER
+TAbstractIntegrator::TAbstractIntegrator(double t0, double tk) {
+    this->h = 0.001;
+    this->model = nullptr;
+    this->t0 = t0;
+    this->tk = tk;
 }
+TAbstractIntegrator::~TAbstractIntegrator() { delete model; }
 void TAbstractIntegrator::SetDynamicModel(TDynamicModel* model) {
     this->model = model;
 };
-void TAbstractIntegrator::SetStep(double h) {
+
+void TAbstractIntegrator::SetInterval(double t0, double tk) {
+    this->t0 = t0;
+    this->tk = tk;
+}
+int TAbstractIntegrator::SetStep(double h) {
     if (h > 0.0) {
         this->h = h;
     }
+    return -1;
 }
 
 TEuler::TEuler() {
     /// PLACEHOLDER
 }
-TEuler::TEuler(double t0, double tk) {
-    this->t0 = t0;
-    this->tk = tk;
-}
+TEuler::TEuler(double t0, double tk) : TAbstractIntegrator(t0, tk) {}
 TEuler::~TEuler() {
     /// PLACEHOLDER
 }

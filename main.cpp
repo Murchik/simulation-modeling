@@ -9,10 +9,9 @@ int main() {
     TDynamicModel* model = new TestFunction;
     // Задание модели и шага интегрирования
     integrator->SetDynamicModel(model);
-    integrator->SetStep(0.000001);
+    integrator->SetStep(0.001);
     // Задание начального значения аргумента
     std::vector<double> values = {0.0};
-    
     // Печать аргументов до интегрирования
     std::cout << "Vector of values before:" << std::endl;
     for (int i = 0; i < values.size(); ++i) {
@@ -30,8 +29,7 @@ int main() {
     }
     std::cout << std::endl;
     
-    // Печать аргументов после интегрирования
-    std::cout << "Vector of values after:" << std::endl;
+    std::cout << "Integration results:" << std::endl;
     for (int i = 0; i < (*inegr).size(); ++i) {
         std::cout << " " << (*inegr)[i];
     }

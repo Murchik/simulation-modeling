@@ -12,6 +12,8 @@ public:
 
     std::vector<double>* GetDerivatives();
     virtual std::vector<double>* GetDerivatives(std::vector<double> values) = 0;
+    virtual std::vector<double>* GetDerivatives(std::vector<double> values,
+                                                double h) = 0;
 };
 
 class TSpaceCraft : public TDynamicModel {
@@ -20,13 +22,18 @@ public:
     ~TSpaceCraft();
 
     std::vector<double>* GetDerivatives(std::vector<double> values) final;
+    std::vector<double>* GetDerivatives(std::vector<double> values,
+                                        double h) final;
 };
 
-// function sin(x)
+// Для проверки правильности работы интеграторов используется функция sin(x),
+// которую легко посчитать вручную
 class TestFunction : public TDynamicModel {
 public:
     TestFunction();
     ~TestFunction();
 
     std::vector<double>* GetDerivatives(std::vector<double> values) final;
+    std::vector<double>* GetDerivatives(std::vector<double> values,
+                                        double h) final;
 };

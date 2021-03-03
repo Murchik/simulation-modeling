@@ -2,36 +2,25 @@
 
 #include "integrators.hpp"
 
-int main() {    
-    std::vector<double>* inegr;
-    // Инициализация интегратора и модели
-    TAbstractIntegrator* integrator = new TRungeKutta(0.0, 2.0);
-    TDynamicModel* model = new TestFunction;
-    // Задание модели и шага интегрирования
+int main() {
+    TAbstractIntegrator* integrator = new TEuler;
+    TDynamicModel* model = new TSpaceCraft;
     integrator->SetDynamicModel(model);
-    integrator->SetStep(0.001);
-    // Задание начального значения аргумента
-    std::vector<double> values = {0.0};
-    // Печать аргументов до интегрирования
-    std::cout << "Vector of values before:" << std::endl;
-    for (int i = 0; i < values.size(); ++i) {
-        std::cout << " " << values[i];
-    }
-    std::cout << std::endl;
 
-    // Интегрирование
-    inegr = integrator->Integrate(&values);
+    std::vector<double> values = {42164000.0, 0.0, 0.0, 0.0, 3074.6, 0.0};
+    double tk = 30.0;  // Конечное значение момента времени интегрирования
+    double h = 0.001;  // Шаг интегрирования
+    int i;             // Номер шага
+    double t;          // Текущее время
 
-    // Печать аргументов после интегрирования
-    std::cout << "Vector of values after:" << std::endl;
-    for (int i = 0; i < values.size(); ++i) {
-        std::cout << " " << values[i];
+    t = 0;  // Задание начального момента времени интегрирования
+    for (i = 0; t < tk; ++i) {
+        values = integrator->OneStep(values, model->getRightParts(values, t), h);
+        t += h;
     }
-    std::cout << std::endl;
-    
-    std::cout << "Integration results:" << std::endl;
-    for (int i = 0; i < (*inegr).size(); ++i) {
-        std::cout << " " << (*inegr)[i];
+
+    for (i = 0; i < values.size(); i++) {
+        std::cout << values[i] << std::endl;
     }
     std::cout << std::endl;
 

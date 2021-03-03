@@ -2,56 +2,20 @@
 
 #include <cmath>
 
-TDynamicModel::TDynamicModel() { derivatives = nullptr; }
-TDynamicModel::~TDynamicModel() { delete derivatives; }
-std::vector<double>* TDynamicModel::GetDerivatives() { return derivatives; }
+TDynamicModel::TDynamicModel() { rightParts = nullptr; }
+TDynamicModel::~TDynamicModel() { delete rightParts; }
 
-TSpaceCraft::TSpaceCraft() { derivatives = new std::vector<double>(6); }
-TSpaceCraft::~TSpaceCraft() {
-    /// PLACEHOLDER
-}
+TSpaceCraft::TSpaceCraft() { rightParts = new std::vector<double>(6); }
+std::vector<double> TSpaceCraft::getRightParts(std::vector<double> values,
+                                          double t) {
+    double radius =
+        sqrt(pow(values[0], 2.0) + pow(values[1], 2.0) + pow(values[2], 2.0));
 
-std::vector<double>* TSpaceCraft::GetDerivatives(std::vector<double> values) {
-    double radius = sqrt(values[0] * values[0] + values[1] * values[1] +
-                         values[2] * values[2]);
-    (*derivatives)[0] = values[3];
-    (*derivatives)[1] = values[4];
-    (*derivatives)[2] = values[5];
-    (*derivatives)[3] = -(GravConst * values[0]) / pow((radius), 3);
-    (*derivatives)[4] = -(GravConst * values[1]) / pow((radius), 3);
-    (*derivatives)[5] = -(GravConst * values[2]) / pow((radius), 3);
-
-    return derivatives;
-}
-std::vector<double>* TSpaceCraft::GetDerivatives(std::vector<double> values,
-                                                 double h) {
-    values[0] += h;
-    values[1] += h;
-    values[2] += h;
-    double radius = sqrt(values[0] * values[0] + values[1] * values[1] +
-                         values[2] * values[2]);
-    (*derivatives)[0] = values[3];
-    (*derivatives)[1] = values[4];
-    (*derivatives)[2] = values[5];
-    (*derivatives)[3] = -(GravConst * values[0]) / pow((radius), 3);
-    (*derivatives)[4] = -(GravConst * values[1]) / pow((radius), 3);
-    (*derivatives)[5] = -(GravConst * values[2]) / pow((radius), 3);
-
-    return derivatives;
-}
-
-TestFunction::TestFunction() { derivatives = new std::vector<double>(1); }
-TestFunction::~TestFunction() {
-    /// PLACEHOLDER
-}
-
-// Производная sin(x) это cos(x)
-std::vector<double>* TestFunction::GetDerivatives(std::vector<double> values) {
-    (*derivatives)[0] = cos(values[0]);
-    return derivatives;
-}
-std::vector<double>* TestFunction::GetDerivatives(std::vector<double> values,
-                                                  double h) {
-    (*derivatives)[0] = cos(values[0] + h);
-    return derivatives;
+    (*rightParts)[3] = -G * values[0] / pow(radius, 3.0);
+    (*rightParts)[4] = -G * values[1] / pow(radius, 3.0);
+    (*rightParts)[5] = -G * values[2] / pow(radius, 3.0);
+    (*rightParts)[0] = values[3] + (*rightParts)[3] * t;
+    (*rightParts)[1] = values[4] + (*rightParts)[4] * t;
+    (*rightParts)[2] = values[5] + (*rightParts)[5] * t;
+    return *rightParts;
 }

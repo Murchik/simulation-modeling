@@ -5,7 +5,7 @@
 int main() {    
     std::vector<double>* inegr;
     // Инициализация интегратора и модели
-    TAbstractIntegrator* integrator = new TEuler(0.0, 2.0);
+    TAbstractIntegrator* integrator = new TRungeKutta(0.0, 2.0);
     TDynamicModel* model = new TestFunction;
     // Задание модели и шага интегрирования
     integrator->SetDynamicModel(model);

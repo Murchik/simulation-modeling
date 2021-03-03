@@ -32,3 +32,14 @@ public:
     std::vector<double>* OneStep(std::vector<double>* values) final;
     std::vector<double>* Integrate(std::vector<double>* values) final;
 };
+
+class TRungeKutta : public TAbstractIntegrator {
+private:
+public:
+    TRungeKutta();
+    TRungeKutta(double t0, double tk);
+    ~TRungeKutta();
+
+    std::vector<double>* OneStep(std::vector<double>* values) final;
+    std::vector<double>* Integrate(std::vector<double>* values) final;
+};

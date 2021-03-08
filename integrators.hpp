@@ -8,15 +8,20 @@ public:
     TAbstractIntegrator();
     ~TAbstractIntegrator();
 
-    void SetDynamicModel(TDynamicModel* model);
+    void setDynamicModel(TDynamicModel* model);
 
-    virtual std::vector<double> OneStep(std::vector<double> values,
-                                        std::vector<double> rightParts,
-                                        double h) = 0;
+    virtual std::vector<double> oneStep(std::vector<double> values, double t,
+                                double h) = 0;
 };
 
 class TEuler : public TAbstractIntegrator {
 public:
-    std::vector<double> OneStep(std::vector<double> values,
-                                std::vector<double> rightParts, double h) final;
+    std::vector<double> oneStep(std::vector<double> values, double t,
+                                double h) final;
+};
+
+class TRungeKutta : public TAbstractIntegrator {
+public:
+    std::vector<double> oneStep(std::vector<double> values, double t,
+                                double h) final;
 };

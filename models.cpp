@@ -6,7 +6,7 @@ TDynamicModel::TDynamicModel() { rightParts = nullptr; }
 TDynamicModel::~TDynamicModel() { delete rightParts; }
 
 TSpaceCraft::TSpaceCraft() { rightParts = new std::vector<double>(6); }
-std::vector<double> TSpaceCraft::getRightParts(std::vector<double> values,
+std::vector<double> TSpaceCraft::func(std::vector<double> values,
                                                double t) {
     double radius =
         sqrt(pow(values[0], 2.0) + pow(values[1], 2.0) + pow(values[2], 2.0));
@@ -25,7 +25,7 @@ std::vector<double> TSpaceCraft::getRightParts(std::vector<double> values,
 }
 
 TTestFunction::TTestFunction() { rightParts = new std::vector<double>(1); }
-std::vector<double> TTestFunction::getRightParts(std::vector<double> values,
+std::vector<double> TTestFunction::func(std::vector<double> values,
                                                  double t) {
     (*rightParts)[0] = cos(t);
     return *rightParts;

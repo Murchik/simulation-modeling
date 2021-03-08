@@ -16,7 +16,6 @@ public:
 };
 
 class TEuler : public TAbstractIntegrator {
-private:
 public:
     std::vector<double> OneStep(std::vector<double> values,
                                 std::vector<double> rightParts, double h) final;

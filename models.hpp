@@ -8,11 +8,21 @@ protected:
 
 public:
     TDynamicModel();
-    virtual std::vector<double> getRightParts(std::vector<double> values, double t) = 0;
+    ~TDynamicModel();
+    virtual std::vector<double> getRightParts(std::vector<double> values,
+                                              double t) = 0;
 };
 
 class TSpaceCraft : public TDynamicModel {
 public:
     TSpaceCraft();
-    std::vector<double> getRightParts(std::vector<double> values, double t) final;
+    std::vector<double> getRightParts(std::vector<double> values,
+                                      double t) final;
+};
+
+class TTestFunction : public TDynamicModel {
+public:
+    TTestFunction();
+    std::vector<double> getRightParts(std::vector<double> values,
+                                      double t) final;
 };

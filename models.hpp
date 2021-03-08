@@ -4,25 +4,25 @@ const double G = 398603000000000.0;  // Гравитационная посто�
 
 class TDynamicModel {
 protected:
-    std::vector<double>* rightParts;
+    int _size;
 
 public:
     TDynamicModel();
-    ~TDynamicModel();
-    virtual std::vector<double> func(std::vector<double> values,
-                                              double t) = 0;
+    int size();
+    virtual std::vector<double> func(std::vector<double>& values, double t) = 0;
 };
 
 class TSpaceCraft : public TDynamicModel {
+private:
+    double _radius;
+
 public:
     TSpaceCraft();
-    std::vector<double> func(std::vector<double> values,
-                                      double t) final;
+    std::vector<double> func(std::vector<double>& values, double t) final;
 };
 
 class TTestFunction : public TDynamicModel {
 public:
     TTestFunction();
-    std::vector<double> func(std::vector<double> values,
-                                      double t) final;
+    std::vector<double> func(std::vector<double>& values, double t) final;
 };

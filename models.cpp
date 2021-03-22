@@ -6,7 +6,7 @@ TDynamicModel::TDynamicModel() { _size = 0; }
 int TDynamicModel::size() { return _size; }
 
 TSpaceCraft::TSpaceCraft() { _size = 6; }
-std::vector<double> TSpaceCraft::func(std::vector<double>& values, double t) {
+std::vector<double> TSpaceCraft::func(const std::vector<double>& values, const double t) {
     std::vector<double> rightParts(_size);
     _radius =
         sqrt(pow(values[0], 2.0) + pow(values[1], 2.0) + pow(values[2], 2.0));
@@ -20,7 +20,7 @@ std::vector<double> TSpaceCraft::func(std::vector<double>& values, double t) {
 }
 
 TTestFunction::TTestFunction() { _size = 1; }
-std::vector<double> TTestFunction::func(std::vector<double>& values, double t) {
+std::vector<double> TTestFunction::func(const std::vector<double>& values, const double t) {
     std::vector<double> rightParts(_size);
     rightParts[0] = cos(t);
     return rightParts;

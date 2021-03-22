@@ -10,27 +10,30 @@ void TEuler::oneStep(TDynamicModel& model, std::vector<double>& values,
     }
 }
 
+TRungeKutta::TRungeKutta(TDynamicModel& model) {
+    _n = model.size();
+    k1.reserve(_n);
+    k2.reserve(_n);
+    k3.reserve(_n);
+    k4.reserve(_n);
+    helpme.reserve(_n);
+}
+
 void TRungeKutta::oneStep(TDynamicModel& model, std::vector<double>& values,
-                          double t, double h) {
+                          const double t, const double h) {
     int i, j;
-    int n = model.size();
-    std::vector<double> k1(n);
-    std::vector<double> k2(n);
-    std::vector<double> k3(n);
-    std::vector<double> k4(n);
-    std::vector<double> helpme(n);
-    for (i = 0; i < n; ++i) {
+    for (i = 0; i < _n; ++i) {
         helpme = values;
         k1 = model.func(helpme, t);
-        for (j = 0; j < n; ++j) {
+        for (j = 0; j < _n; ++j) {
             helpme[j] = values[j] + h * k1[j] / 2.0;
         }
         k2 = model.func(helpme, t + h / 2.0);
-        for (j = 0; j < n; ++j) {
+        for (j = 0; j < _n; ++j) {
             helpme[j] = values[j] + h * k2[j] / 2.0;
         }
         k3 = model.func(helpme, t + h / 2.0);
-        for (j = 0; j < n; ++j) {
+        for (j = 0; j < _n; ++j) {
             helpme[j] = values[j] + h * k3[j] / 2.0;
         }
         k4 = model.func(helpme, t + h);

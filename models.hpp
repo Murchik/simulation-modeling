@@ -9,7 +9,7 @@ protected:
 public:
     TDynamicModel();
     int size();
-    virtual std::vector<double> func(std::vector<double>& values, double t) = 0;
+    virtual std::vector<double> func(const std::vector<double>& values, const double t) = 0;
 };
 
 class TSpaceCraft : public TDynamicModel {
@@ -18,11 +18,11 @@ private:
 
 public:
     TSpaceCraft();
-    std::vector<double> func(std::vector<double>& values, double t) final;
+    std::vector<double> func(const std::vector<double>& values, const double t) final;
 };
 
 class TTestFunction : public TDynamicModel {
 public:
     TTestFunction();
-    std::vector<double> func(std::vector<double>& values, double t) final;
+    std::vector<double> func(const std::vector<double>& values, const double t) final;
 };

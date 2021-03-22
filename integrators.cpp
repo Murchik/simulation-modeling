@@ -14,6 +14,11 @@ void TRungeKutta::oneStep(TDynamicModel& model, std::vector<double>& values,
                           double t, double h) {
     int i, j;
     int n = model.size();
+    std::vector<double> k1(n);
+    std::vector<double> k2(n);
+    std::vector<double> k3(n);
+    std::vector<double> k4(n);
+    std::vector<double> helpme(n);
     for (i = 0; i < n; ++i) {
         helpme = values;
         k1 = model.func(helpme, t);
